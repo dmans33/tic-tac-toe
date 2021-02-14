@@ -13,11 +13,18 @@ std::vector<std::vector<std::string>> CreateBoard(){
     return board;
 }
 
-void DisplayBoard(std::vector<std::vector<std::string>>){
 
+void DisplayBoard(std::vector<std::vector<std::string>> board) {
+
+	for (int i = 0; i<board.size(); i++) {
+		for (int j =0; j< board[i].size(); j++) {
+			std::cout<< board[i][j] << " ";
+		}
+		std::cout<<""<<std::endl;
+	}
 }
-
 
 int main(){
   std::vector<std::vector<std::string>> brd = CreateBoard();
+  DisplayBoard(brd);
 }
