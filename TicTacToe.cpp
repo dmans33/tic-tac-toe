@@ -44,7 +44,7 @@ void PlaceMarker(int player, std::string loc, std::vector<std::vector<std::strin
 	}
 }
 
-std::string GetPlayerChoice (std::vector<std::vector<std::string>> *board) {
+std::string GetPlayerChoice (int player, std::vector<std::vector<std::string>> *board) {
 	std::vector<std::string> validChoices;
 	for (int i = 0; i<(*board).size(); i++) {
 		for (int j =0; j< (*board)[i].size(); j++) {
@@ -55,7 +55,7 @@ std::string GetPlayerChoice (std::vector<std::vector<std::string>> *board) {
 	}
 
 	std::string userChoice;
-	std::cout<<"Please choose where to place your marker! The valid moves are ";
+	std::cout<<"Player "<<player+1<<" please choose where to place your marker! The valid moves are ";
 	for (int f = 0; f<validChoices.size(); f++) {
 		std::cout<<validChoices[f]<<" ";
 	}
@@ -82,9 +82,18 @@ std::string GetPlayerChoice (std::vector<std::vector<std::string>> *board) {
 int main(){
   std::vector<std::vector<std::string>> *brd = CreateBoard();
   DisplayBoard(brd);
-  std::string x = GetPlayerChoice(brd);
-  // PlaceMarker(0,"6",brd);
-  // DisplayBoard(brd);
-
+  int whichPlayer = 0;
+  std::string userChoice;
+  for (int i = 0; i<9; i++) {
+  	userChoice = GetPlayerChoice(whichPlayer, brd);
+  	PlaceMarker(whichPlayer, userChoice, brd);
+  	DisplayBoard(brd);
+  	if (whichPlayer==0) {
+  		whichPlayer++;
+  	}
+  	else {
+  		whichPlayer--;
+  	}
+  }
   delete brd;
 }
