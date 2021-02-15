@@ -26,32 +26,63 @@ void DisplayBoard(std::vector<std::vector<std::string>> *board) {
 }
 
 void PlaceMarker(int player, std::string loc, std::vector<std::vector<std::string>> *board){
-  int row;
-  int col;
-  if (stoi(loc) > 9){
-    std::cout << "The input location is invalid. Please choose again."<<std::endl;
-  }
-  else{
-    if (stoi(loc)%3 == 0){
-    row = stoi(loc)/3 - 1;
-    col = 2;
-    }
-    else{
-      row = stoi(loc)/3;
-      col = stoi(loc)%3 - 1;
-    }
-    if (player == 0){
-      (*board)[row][col] = "X";
-    }
-    else{
-      (*board)[row][col] = "O";
-    }
-  }
+  	int row;
+  	int col;
+	if (stoi(loc)%3 == 0){
+	row = stoi(loc)/3 - 1;
+	col = 2;
+	}
+	else{
+	  row = stoi(loc)/3;
+	  col = stoi(loc)%3 - 1;
+	}
+	if (player == 0){
+	  (*board)[row][col] = "X";
+	}
+	else{
+	  (*board)[row][col] = "O";
+	}
+}
+
+std::string GetPlayerChoice (std::vector<std::vector<std::string>> *board) {
+	std::vector<std::string> validChoices;
+	for (int i = 0; i<(*board).size(); i++) {
+		for (int j =0; j< (*board)[i].size(); j++) {
+			if ((*board)[i][j] != "X" && (*board)[i][j] != "O") {
+				validChoices.push_back((*board)[i][j]);
+			}
+		}
+	}
+
+	std::string userChoice;
+	std::cout<<"Please choose where to place your marker! The valid moves are ";
+	for (int f = 0; f<validChoices.size(); f++) {
+		std::cout<<validChoices[f]<<" ";
+	}
+	std::cout<<":"<<std::endl;
+	std::cin>>userChoice;
+
+	for (int f = 0; f<validChoices.size(); f++) {
+		if (userChoice == validChoices[f]) {
+			return userChoice;
+		}
+	}
+
+	while (true) {
+		std::cout<<"That was not a valid choice. Please enter a valid move!"<<std::endl;
+		std::cin>>userChoice;
+		for (int f = 0; f<validChoices.size(); f++) {
+			if (userChoice == validChoices[f]) {
+				return userChoice;
+			}
+		}
+	}
 }
 
 int main(){
   std::vector<std::vector<std::string>> *brd = CreateBoard();
   DisplayBoard(brd);
+  std::string x = GetPlayerChoice(brd);
   // PlaceMarker(0,"6",brd);
   // DisplayBoard(brd);
 
