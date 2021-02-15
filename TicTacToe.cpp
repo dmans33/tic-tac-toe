@@ -1,9 +1,13 @@
+// PE4
 // Tic-tac-toe.cpp
+// Team members: Devin Sharpe, Mingyu Hu
 
 #include <iostream>
 #include <vector>
 #include <string>
 
+// This function initialize an 3-by-3 "empty" board for the tic-tac-toe game.
+// Output: a pointer to a 3-by-3 vector of type string.
 std::vector<std::vector<std::string>> *CreateBoard(){
   std::vector<std::vector<std::string>> *board  = new std::vector<std::vector<std::string> >(3, std::vector<std::string>(3));
   (*board) = {
@@ -14,7 +18,8 @@ std::vector<std::vector<std::string>> *CreateBoard(){
     return board;
 }
 
-
+// This function displays the current board on terminal.
+// Input: the pointer to the board
 void DisplayBoard(std::vector<std::vector<std::string>> *board) {
 
 	for (int i = 0; i<(*board).size(); i++) {
@@ -25,6 +30,9 @@ void DisplayBoard(std::vector<std::vector<std::string>> *board) {
 	}
 }
 
+// This function updates the board by placing either "X" or "O" for the current player.
+// Input: int player, a string within "1" to "9" for the location choice,
+//        the pointer to the board.
 void PlaceMarker(int player, std::string loc, std::vector<std::vector<std::string>> *board){
   	int row;
   	int col;
@@ -44,6 +52,10 @@ void PlaceMarker(int player, std::string loc, std::vector<std::vector<std::strin
 	}
 }
 
+
+// This function gets the location choice of the given player from user input.
+// Input: int player, the pointer to the board.
+// Output: The string of user input location to place its marker.
 std::string GetPlayerChoice (int player, std::vector<std::vector<std::string>> *board) {
 	std::vector<std::string> validChoices;
 	for (int i = 0; i<(*board).size(); i++) {
@@ -79,6 +91,9 @@ std::string GetPlayerChoice (int player, std::vector<std::vector<std::string>> *
 	}
 }
 
+
+// The main function simulates a complete tic-tac-toe game.
+// The game ends until all 9 spots are filled.
 int main(){
   std::vector<std::vector<std::string>> *brd = CreateBoard();
   DisplayBoard(brd);
